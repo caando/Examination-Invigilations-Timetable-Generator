@@ -1,0 +1,28 @@
+#content{
+	max-width: 800px;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+
+#add-box{
+	width: 100%;
+	height: 40px;
+}
+
+#add{
+	float: right;
+}
+
+.card{
+
+}
+
+.card-header{
+}
+
+.edit-button{
+	text-align: right;
+	height: 230px;
+
+}

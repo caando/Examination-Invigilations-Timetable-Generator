@@ -1,0 +1,400 @@
+<head>
+	<title>
+		Papers
+	</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{ url_for('static', filename='papers.css')}}"/>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='papers.js')}}"></script>
+
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{{ url_for('papers') }}">Papers<span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('teachers') }}">Teachers</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('selection') }}">Selection</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('generate') }}">Generate</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('saves') }}">Saves</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="accordion" id="content">
+		<div id="add-box">
+			<button id="add" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add-modal">
+				Add Paper
+			</button>
+		</div>
+		{% for paper in papers %}
+			<div class="card">
+				<div class="card-header" id="h{{ paper.id}}">
+					<h2 class="mb-0">
+						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#c{{ paper.id}}" aria-expanded="true" aria-controls="c{{ paper.id}}">
+							{{ paper.Name }}
+						</button>
+					</h2>
+				</div>
+				<div id="c{{ paper.id}}" class="collapse" aria-labelledby="h{{ paper.id}}" data-parent="#content">
+					<div class="card-body">
+						<form method="POST">
+
+							<div class="row">
+								<div class="form-group col-6">
+									<label for="{{ paper.id }}-name">Name</label>
+									<input type="text" class="form-control" id="{{ paper.id }}-name" name="{{ paper.id }}-name" value="{{ paper.Name }}" placeholder="Enter Name" required>
+								</div>
+								<div class="form-group col">
+									<label for="{{ paper.id }}-subject">Subject</label>
+									<input type="text" class="form-control" id="{{ paper.id }}-subject" name="{{ paper.id }}-subject" value="{{ paper.Subject }}" placeholder="Enter Subject" required>
+								</div>
+								<div class="form-group col">
+									<label for="{{ paper.id }}-subjcode">Subject Code</label>
+									<input type="text" class="form-control" id="{{ paper.id }}-subjcode" name="{{ paper.id }}-subjcode" value="{{ paper.SubjectCode }}" placeholder="Enter Subject Code" required>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col">
+									<label for="{{ paper.id }}-level">Level</label>
+									<select class="form-control" id="{{ paper.id }}-level" name="{{ paper.id }}-level" required>
+										{% if paper.Level == 1 %}
+											<option selected>1</option>
+										{% else %}
+											<option>1</option>
+										{% endif %}
+										{% if paper.Level == 2 %}
+											<option selected>2</option>
+										{% else %}
+											<option>2</option>
+										{% endif %}
+										{% if paper.Level == 3 %}
+											<option selected>3</option>
+										{% else %}
+											<option>3</option>
+										{% endif %}
+										{% if paper.Level == 4 %}
+											<option selected>4</option>
+										{% else %}
+											<option>4</option>
+										{% endif %}
+										{% if paper.Level == 5 %}
+											<option selected>5</option>
+										{% else %}
+											<option>5</option>
+										{% endif %}
+										{% if paper.Level == 6 %}
+											<option selected>6</option>
+										{% else %}
+											<option>6</option>
+										{% endif %}
+									</select>
+								</div>
+								<div class="form-group col">
+									<label for="{{ paper.id }}-department">Department</label>
+									<select class="form-control" id="{{ paper.id }}-department" name="{{ paper.id }}-department" required>
+										<option value="" disabled selected>Select department</option>
+										{% if paper.Department == "AESTHETICS" %}
+											<option selected>AESTHETICS</option>
+										{% else %}
+											<option>AESTHETICS</option>
+										{% endif %}
+										{% if paper.Department == "EL" %}
+											<option selected>EL</option>
+										{% else %}
+											<option>EL</option>
+										{% endif %}
+										{% if paper.Department == "HCL" %}
+											<option selected>HCL</option>
+										{% else %}
+											<option>HCL</option>
+										{% endif %}
+										{% if paper.Department == "ECON" %}
+											<option selected>ECON</option>
+										{% else %}
+											<option>ECON</option>
+										{% endif %}
+										{% if paper.Department == "GEOG" %}
+											<option selected>GEOG</option>
+										{% else %}
+											<option>GEOG</option>
+										{% endif %}
+										{% if paper.Department == "HIST" %}
+											<option selected>HIST</option>
+										{% else %}
+											<option>HIST</option>
+										{% endif %}
+										{% if paper.Department == "MATH" %}
+											<option selected>MATH</option>
+										{% else %}
+											<option>MATH</option>
+										{% endif %}
+										{% if paper.Department == "MTL" %}
+											<option selected>MTL</option>
+										{% else %}
+											<option>MTL</option>
+										{% endif %}
+										{% if paper.Department == "HE" %}
+											<option selected>HE</option>
+										{% else %}
+											<option>HE</option>
+										{% endif %}
+										{% if paper.Department == "BIO" %}
+											<option selected>BIO</option>
+										{% else %}
+											<option>BIO</option>
+										{% endif %}
+										{% if paper.Department == "CHEM" %}
+											<option selected>CHEM</option>
+										{% else %}
+											<option>CHEM</option>
+										{% endif %}
+										{% if paper.Department == "PHY" %}
+											<option selected>PHY</option>
+										{% else %}
+											<option>PHY</option>
+										{% endif %}
+										{% if paper.Department == "CP" %}
+											<option selected>CP</option>
+										{% else %}
+											<option>CP</option>
+										{% endif %}
+										{% if paper.Department == "D&T" %}
+											<option selected>D&T</option>
+										{% else %}
+											<option>D&T</option>
+										{% endif %}
+									</select>
+								</div>
+								<div class="form-group col">
+									<label for="{{ paper.id }}-count">Require Number</label>
+									<select class="form-control" id="{{ paper.id }}-count" name="{{ paper.id }}-count" required>
+										<option value="" disabled selected>Select number of teachers required</option>
+										{% for i in range(101) %}
+											{% if paper.Count == i %}
+												<option selected>{{ i }}</option>
+											{% else %}
+												<option>{{ i }}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col">
+									<label for="datetimepicker1-{{ paper.id }}">Date</label>
+									<div class="input-group date" id="datetimepicker1-{{ paper.id }}" data-target-input="nearest">
+										<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1-{{ paper.id }}" name="{{ paper.id }}-date" value="{{ paper.date_str }}" placeholder="Enter Date" required/>
+										<div class="input-group-append" data-target="#datetimepicker1-{{ paper.id }}" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group col">
+									<label for="datetimepicker2-{{ paper.id }}">Start Time</label>
+									<div class="input-group date" id="datetimepicker2-{{ paper.id }}" data-target-input="nearest">
+										<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2-{{ paper.id }}" name="{{ paper.id }}-starttime" value="{{ paper.starttime_str }}" placeholder="Enter Start Time" required/>
+										<div class="input-group-append" data-target="#datetimepicker2-{{ paper.id }}" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fas fa-clock"></i></div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group col">
+									<label for="datetimepicker3-{{ paper.id }}">End Time</label>
+									<div class="input-group date" id="datetimepicker3-{{ paper.id }}" data-target-input="nearest">
+										<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3-{{ paper.id }}" name="{{ paper.id }}-endtime" value="{{ paper.endtime_str }}" placeholder="Enter End Time" required/>
+										<div class="input-group-append" data-target="#datetimepicker3-{{ paper.id }}" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fas fa-clock"></i></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="edit-button">
+								<div class="btn-group" role="group" aria-label="Buttons">
+									<button class="btn btn-warning btn-sm"type="submit"  name="edit" value="{{ paper.id }}">
+										Edit
+									</button>
+									<button class="btn btn-danger btn-sm"type="submit"  name="delete" value="{{ paper.id }}">
+										Delete
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-labelledby="add-modal-title" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="add-modal-title">Add paper</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="POST">
+						<div class="row">
+							<div class="form-group col-6">
+								<label for="add-name">Name</label>
+								<input type="text" class="form-control" id="add-fullname" name="add-name" placeholder="Enter Name" required>
+							</div>
+							<div class="form-group col">
+								<label for="add-subject">Subject</label>
+								<input type="text" class="form-control" id="add-subject" name="add-subject" placeholder="Enter Subject" required>
+							</div>
+							<div class="form-group col">
+								<label for="add-subjcode">Subject Code</label>
+								<input type="text" class="form-control" id="add-subjcode" name="add-subjcode" placeholder="Enter Subject Code" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col">
+								<label for="add-level">Level</label>
+								<select class="form-control" id="add-level" name="add-level" required>
+									<option value="" disabled selected>Select level</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+								</select>
+							</div>
+							<div class="form-group col">
+								<label for="add-department">Department</label>
+								<select class="form-control" id="add-department" name="add-department" required>
+									<option value="" disabled selected>Select department</option>
+									<option>AESTHETICS</option>
+									<option>EL</option>
+									<option>HCL</option>
+									<option>ECON</option>
+									<option>GEOG</option>
+									<option>HIST</option>
+									<option>MATH</option>
+									<option>MTL</option>
+									<option>HE</option>
+									<option>BIO</option>
+									<option>CHEM</option>
+									<option>PHY</option>
+									<option>CP</option>
+									<option>D&T</option>
+								</select>
+							</div>
+							<div class="form-group col">
+								<label for="add-count">Require Number</label>
+								<select class="form-control" id="add-count" name="add-count" required>
+									<option value="" disabled selected>Select number of teachers required</option>
+									{% for i in range(101) %}
+										<option>{{ i }}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col">
+								<label for="datetimepicker1">Date</label>
+								<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+									<input type="text" style="" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="add-date" placeholder="Enter Date" required/>
+									<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group col">
+								<label for="datetimepicker2">Start Time</label>
+								<div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+									<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" name="add-starttime" placeholder="Enter Start Time" required/>
+									<div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fas fa-clock"></i></div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group col">
+								<label for="datetimepicker3">End Time</label>
+								<div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+									<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" name="add-endtime" placeholder="Enter End Time" required/>
+									<div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fas fa-clock"></i></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+						<button class="btn btn-primary btn-sm" type="submit" name="add" value="true">Add paper</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
+</div>
+	<script>
+	$(function () {
+		$('#datetimepicker1').datetimepicker({
+			format: 'DD-MM-YYYY',
+			daysOfWeekDisabled: [0, 6],
+			useCurrent: false,
+			Default: false
+		});
+		$('#datetimepicker2').datetimepicker({
+			format: 'LT'
+		});
+		$('#datetimepicker3').datetimepicker({
+			format: 'LT'
+		});
+		$("#datetimepicker2").on("change.datetimepicker", function (e) {
+			$('.datetimepicker3').datetimepicker('minDate', e.date);
+		});
+		$("#datetimepicker3").on("change.datetimepicker", function (e) {
+			$('#datetimepicker2').datetimepicker('maxDate', e.date);
+		});
+		{% for paper in papers %}
+			$('#datetimepicker1-{{ paper.id }}').datetimepicker({
+				format: 'DD-MM-YYYY',
+				daysOfWeekDisabled: [0, 6],
+				useCurrent: false,
+				Default: false
+			});
+			$('#datetimepicker2-{{ paper.id }}').datetimepicker({
+				format: 'LT'
+			});
+			$('#datetimepicker3-{{ paper.id }}').datetimepicker({
+				format: 'LT'
+			});
+			$("#datetimepicker2-{{ paper.id }}").on("change.datetimepicker", function (e) {
+				$('#datetimepicker3-{{ paper.id }}').datetimepicker('minDate', e.date);
+			});
+			$("#datetimepicker3-{{ paper.id }}").on("change.datetimepicker", function (e) {
+				$('#datetimepicker2-{{ paper.id }}').datetimepicker('maxDate', e.date);
+			});
+		{% endfor %}
+	});
+	</script>
+</body>

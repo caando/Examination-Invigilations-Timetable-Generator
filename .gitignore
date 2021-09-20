@@ -1,0 +1,13 @@
+.vscode
+.DS_Store
+
+env/
+__pycache__/
+backup/
+
+*.xlsx
+*.xls
+*.xml
+
+database.db
+output.txt
